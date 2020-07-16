@@ -47,7 +47,6 @@ def cows_and_bulls():
     print("How many digits would you like the number you guess to have? \n")
     user_digits = int(user_guess())
     ntg = generate_number(user_digits)
-    print(ntg)
     counter = 0
     guessed_it = 0
     while guessed_it == 0:
@@ -61,14 +60,26 @@ def cows_and_bulls():
                 print("Hey now, your guess had the wrong number of digits! Try again.")
             elif len(un) == user_digits:
                 proper_guess = 1
-        print(un)
-        cow_counter = 0
-        bull_counter = 0
+            cow_counter = 0
+            bull_counter = 0
+            temp_ntg = list(ntg)
+            temp_un = list(un)
         for i in range(user_digits):
             if ntg[i] == un[i]:
                 cow_counter = cow_counter + 1
-            elif un[i] in ntg:
+                temp_ntg[i] = ''
+                temp_un[i] = ''
+        stntg = ''.join(temp_ntg)
+        sttun = ''.join(temp_un)
+        temp_ntg = list(stntg)
+        temp_un = list(sttun)
+        for i in sttun:
+            if i in stntg:
                 bull_counter = bull_counter + 1
+                str_temp_ntg = ''.join(temp_ntg)
+                str_temp_ntg = str_temp_ntg.replace(i,'',1)
+                stntg = str_temp_ntg
+                temp_ntg = list(str_temp_ntg)
         cont_message = str(cow_counter) + " cows, " + str(bull_counter) + " bulls \n"
         win_message = "Yee-haw! You won 'pardner! The number was " + ntg + ". It only took you " + str(counter+1) + " guesses!"
         if cow_counter == user_digits:
